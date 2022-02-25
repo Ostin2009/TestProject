@@ -101,6 +101,7 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
+                App\GraphQL\Queries\UserQuery::class,
                 App\GraphQL\Queries\UsersQuery::class,
                 // 'example_query' => ExampleQuery::class,
             ],
@@ -126,6 +127,7 @@ return [
     //
     'types' => [
         App\GraphQL\Types\UserType::class,
+        App\GraphQL\Types\UserListType::class,
         // 'example'           => ExampleType::class,
         // 'relation_example'  => ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,
