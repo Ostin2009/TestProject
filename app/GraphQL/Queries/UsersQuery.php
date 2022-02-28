@@ -23,18 +23,25 @@ class UsersQuery extends Query
     public function args(): array
     {
         return [
-
+            'size' => [
+                'type' => Type::int(),
+                'defaultValue' => 10,
+            ],
+            'page' => [
+                'type' => Type::int(),
+                'defaultValue' => 1,
+            ]
         ];
     }
 
     public function resolve($root, array $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
 
-        $query = User::query()->paginate(10);
+        $query = User::query()->paginate($args['size'], ['*'], 'page', $args['page']);
         $result = $query->items();
         return [
             'page' => $query->currentPage(),
-            'size' => 1,
+            'size' => $query->perPage(),
             'count' => $query->total(),
             'pages' => $query->lastPage(),
             'items' => $result

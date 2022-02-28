@@ -4,10 +4,12 @@ namespace App\GraphQL\Queries;
 
 use Closure;
 use App\User;
+use GraphQL\Error\Error;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
-use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
+use GraphQL\Type\Definition\Type;
+
 
 class UserQuery extends Query
 {
@@ -17,7 +19,7 @@ class UserQuery extends Query
 
     public function type(): Type
     {
-        return Type::nonNull(Type::listOf(Type::nonNull(GraphQL::type('User'))));
+        return GraphQL::type('User');
     }
 
     public function args(): array
@@ -25,34 +27,19 @@ class UserQuery extends Query
         return [
             'id' => [
                 'name' => 'id',
-                'type' => Type::string(),
-            ],
-            'name' =>[
-                'name' => 'name',
-                'type' => Type::string(),
-            ],
-            'email' => [
-                'name' => 'email',
-                'type' => Type::string(),
+                'type' => Type::nonNull(Type::int()),
             ]
         ];
     }
 
     public function resolve($root, array $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
-        if (isset($args['id'])) {
-            return User::where('id' , $args['id'])->get();
-        }
 
-        if (isset($args['name'])) {
-            return User::where('name' , $args['name'])->get();
-        }
+        $user = User::query()->where('id' , $args['id'])->first();
 
-        if (isset($args['email'])) {
-            return User::where('email', $args['email'])->get();
-        }
+        if(!$user) return new Error("user id = {$args['id']} not found");
 
-        return User::all();
+        return $user;
     }
 }
 
