@@ -1,23 +1,11 @@
 import gql from 'graphql-tag'
 
-export const CURRENT_USER = gql`
-query {
-  CurrentUser {
+export const USER_PUSH = gql`
+mutation ($name: String, $email: String, $password: String) {
+  createUser(name: $name, email: $email, password: $password){
     id
-    code
-    externalId
     name
     email
-    groups {
-      id
-      code
-      name
-    }
-    roles {
-      id
-      code
-      name
-    }
   }
 }
 `
