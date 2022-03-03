@@ -1,7 +1,6 @@
 import usersList from "@/pages/usersList";
 import {createRouter, createWebHistory} from "vue-router";
-import editUser from "@/pages/editUser";
-import addUser from "@/pages/addUser";
+import carsList from "@/pages/carsList";
 
 
 const routes = [
@@ -10,13 +9,9 @@ const routes = [
         component: usersList
     },
     {
-        path: '/edit',
-        component: editUser
-    },
-    {
-        path: '/add',
-        component: addUser
-    },
+        path: '/cars',
+        component: carsList
+    }
 ]
 
 const router = createRouter({

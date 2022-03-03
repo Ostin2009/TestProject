@@ -25,19 +25,15 @@ class UpdateUserMutation extends Mutation
         return [
             'id' => ['
                 name' => 'id',
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::nonNull(Type::int()),
             ],
             'name' => [
                 'name' => 'name',
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
             ],
             'email' => [
                 'name' => 'email',
-                'type' => Type::nonNull(Type::string()),
-            ],
-            'password' => [
-                'name' => 'password',
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
             ]
         ];
     }
@@ -51,7 +47,6 @@ class UpdateUserMutation extends Mutation
 
         if($args['name'] != '') $user->name = $args['name'];
         if($args['email'] != '') $user->email = $args['email'];
-        if($args['password'] != '') $user->password = bcrypt($args['password']);
 
         $user->save();
 

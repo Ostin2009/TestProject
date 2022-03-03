@@ -1,22 +1,13 @@
 <template>
-    <div class="nav-bar">
-        <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-            <el-tab-pane label="Пользователи" name="first">Список пользователей</el-tab-pane>
-            <el-tab-pane label="Добавить пользователя" name="second">Добавление пользователя</el-tab-pane>
-        </el-tabs>
-    </div>
+    <el-row class="mb-4">
+        <el-button type="primary"><router-link to="/">Пользователи</router-link></el-button>
+        <el-button type="primary"><router-link to="/cars">Автомобили</router-link></el-button>
+    </el-row>
 </template>
 
-<script lang="ts" setup>
-
-</script>
-
 <style>
-.demo-tabs > .el-tabs__content {
-    padding: 32px;
-    background-color: #f4f5f7;
-    color: #6b778c;
-    font-size: 32px;
-    font-weight: 600;
-}
+    button a{
+        text-decoration: none;
+        color: white;
+    }
 </style>
